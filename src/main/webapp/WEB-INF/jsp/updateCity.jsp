@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<c:url value="/update" var="var"/>
+<c:url value="/updateCity" var="var"/>
 <form action="${var}" method="POST">
     <input type="hidden"  value="${city.id}" name="id">
     <label for="name">City</label>

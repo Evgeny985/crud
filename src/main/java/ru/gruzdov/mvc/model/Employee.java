@@ -5,7 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -14,16 +17,18 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID_CITY")
+    @Column(name="ID_EMPLOYEE")
     private Integer id;
 @Column(name="FIRST_NAME")
     private String firstName;
     @Column(name="LAST_NAME")
     private String lastName;
-    //@Temporal (value = TemporalType.DATE)
-    @Column(name="BIRTH_DATE")
-    private LocalDate birthDate;
 
+    //@Temporal (value = TemporalType.DATE)
+
+    @OneToOne
+    @JoinColumn(name="DEPARTMENT_ID")
+    private Department department;
     //private Department employee;
 
 

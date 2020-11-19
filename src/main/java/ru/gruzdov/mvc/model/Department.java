@@ -19,18 +19,11 @@ public class Department {
     @Column(name="DEPARTMENT_NAME")
     private String name;
 
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="CITY_ID")
     private City city;
+    @OneToOne(mappedBy = "department")
+    private Employee employee;
 
-    //private Employee employee;
 
 }

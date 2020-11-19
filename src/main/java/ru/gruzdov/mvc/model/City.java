@@ -18,7 +18,6 @@ import java.util.Set;
 @Entity
 @Table(name="CITY")
 public class City {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID_CITY")
@@ -27,7 +26,5 @@ public class City {
     private String name;
     @OneToMany(mappedBy="city")
     private List<Department> departments;
-
-
 
 }

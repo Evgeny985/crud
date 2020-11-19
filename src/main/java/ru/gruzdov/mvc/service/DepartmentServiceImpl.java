@@ -13,6 +13,7 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService{
     @Autowired
     private DepartmentDAO departmentDAO;
+    @Autowired
     private CityDAO cityDAO;
     @Override
     @Transactional
@@ -42,7 +43,7 @@ this.departmentDAO.updateDepartment(department);
 
     @Override
     @Transactional
-    public List<Department> getAllDepartment() {
-        return this.departmentDAO.getAllDepartment();
+    public List<Department> getAllDepartmentByCityId(Integer cityId) {
+        return this.departmentDAO.getAllDepartmentByCityId(cityId);
     }
 }

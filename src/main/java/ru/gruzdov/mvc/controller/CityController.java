@@ -17,8 +17,8 @@ import java.util.List;
 @Controller
 public class CityController {
     @Autowired
-    //@Qualifier("cityServiceImpl")
     private CityService cityService;
+    @Autowired
     private DepartmentService departmentService;
 
     @GetMapping(value = "/")
@@ -41,7 +41,7 @@ public class CityController {
         return modelAndView;
     }
 
-    @GetMapping(value ="/update/{id}")//место параметра в адресной строке
+    @GetMapping(value ="/updateCity/{id}")//место параметра в адресной строке
     public ModelAndView updatePage(@PathVariable Integer id){
         City city=cityService.getCityById(id);
         ModelAndView modelAndView=new ModelAndView();
@@ -50,27 +50,29 @@ public class CityController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/updateCity")
     public ModelAndView updateCity(@ModelAttribute("city") City city){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("redirect:/");
         cityService.updateCity(city);
         return  modelAndView;
     }
-    @GetMapping(value="/add")
+
+
+    @GetMapping(value="/addCity")
     public ModelAndView addPage(){
         ModelAndView modelAndView= new ModelAndView();
         modelAndView.setViewName("addCity");
         return modelAndView;
     }
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/addCity")
     public ModelAndView addCity(@ModelAttribute("city") City city){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("redirect:/");
         cityService.addCity(city);
         return  modelAndView;
     }
-    @GetMapping(value ="/delete/{id}")
+    @GetMapping(value ="/deleteCity/{id}")
     public ModelAndView deleteCity(@PathVariable("id") int id) {
         City city=cityService.getCityById(id);
         ModelAndView modelAndView = new ModelAndView();

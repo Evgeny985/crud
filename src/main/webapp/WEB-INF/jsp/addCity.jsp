@@ -14,7 +14,7 @@
 
 </head>
 <body>
-    <c:url value="/add" var="city"/>
+    <c:url value="/addCity" var="city"/>
 
 <form action="${city}" method="POST">
 

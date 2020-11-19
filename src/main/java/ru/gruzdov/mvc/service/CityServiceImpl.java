@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class CityServiceImpl implements CityService{
     @Autowired
-
     private CityDAO cityDAO;
+    @Autowired
     private DepartmentDAO departmentDAO;
     @Override
     @Transactional
@@ -53,6 +53,6 @@ public class CityServiceImpl implements CityService{
     @Override
     @Transactional
     public List<Department> getDepByCityId(Integer id) {
-        return this.departmentDAO.getAllDepartment();
+        return this.departmentDAO.getAllDepartmentByCityId(id);
     }
 }

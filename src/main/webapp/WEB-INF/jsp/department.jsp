@@ -17,19 +17,26 @@
 
     <table>
     <tr>
-        <th>id  </th>
-        <th>Department   </th>
+        <th>ID </th>
+        <th>Department </th>
         <th>CITY_ID   </th>
         <th>action</th>
     </tr>
     <c:forEach var="department" items="${DepartmentFromServer}">
         <tr>
-            <td>${department.id}</td>
-            <td>${department.name}</td>
-            <td>${department.city.id}</td>
             <td>
-                <a href="/updateD/${department.id}">update</a>
-                <a href="/deleteD/${department.id}">delete</a>
+                    ${department.id}
+            </td>
+
+            <td>
+                <c:url value="/employee" var="employee"/>
+                <a href="${pageContext.request.contextPath}/employee?id=${department.id}">${department.name}</a>
+            </td>
+            <td>${department.city.id}</td>
+
+            <td>
+                <a href="/updateDepartment/${department.id}">update</a>
+                <a href="/deleteDepartment/${department.id}" >delete</a>
             </td>
         </tr>
 
@@ -37,8 +44,8 @@
     </table>
 
 
-    <c:url value="/addD" var="addD"/>
-    <a href="${addD}">Add Department</a>
+    <c:url value="/addDepartment" var="addDepartment"/>
+    <a href="${addDepartment}">Add Department</a>
 <c:url value="/" var="city"/>
 <a href="${city}">Back to City page</a>
 

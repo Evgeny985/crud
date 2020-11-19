@@ -49,8 +49,9 @@ public class CityDAOImpl implements CityDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Department> getDepByCityId(Integer id) {
-        return sessionFactory.getCurrentSession().createQuery("from Department").list();
+    public List<Department> getDepByCityId(Integer cityid) {
+
+        return sessionFactory.getCurrentSession().createQuery("select name from Department where id=city.id").list();
     }
 
   /*  public boolean checkTitle(String title) {

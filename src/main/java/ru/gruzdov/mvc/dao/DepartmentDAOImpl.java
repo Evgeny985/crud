@@ -12,7 +12,7 @@ import java.util.List;
 public class DepartmentDAOImpl implements DepartmentDAO {
     @Autowired
     private SessionFactory sessionFactory;
-    private City city;
+
 
     @Override
     public void addDepartment (Department department) {
@@ -37,9 +37,9 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Department> getAllDepartment() {
+    public List<Department> getAllDepartmentByCityId(Integer cityId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Department").list();
+        return session.createQuery("SELECT d from Department d join d.city c  where c.id=:id").setInteger("id",cityId).list();
     }
 
 

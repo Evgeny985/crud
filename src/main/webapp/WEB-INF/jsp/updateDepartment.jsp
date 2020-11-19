@@ -9,12 +9,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-
-    <title>Update</title>
-
+    <title>Update Department</title>
 </head>
 <body>
-<c:url value="/updateD" var="var"/>
+<c:url value="/updateDepartment" var="var"/>
 <form action="${var}" method="POST">
     <input type="hidden"  value="${department.id}" name="id">
     <label for="name">Department</label>

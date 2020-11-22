@@ -34,14 +34,14 @@
     }
 </script>
 <body>
-<h2>${city.name}</h2>
-
     <c:url value="/addDepartment" var="department"/>
+
 <form action="${department}" name="registration_form" onsubmit="return validateForm()" method="POST">
     <table>
          <tr>
+
             <td>
-                <label >City</label>
+                <label>City</label>
                 <input type="text" name="cityId" >
 
             </td>

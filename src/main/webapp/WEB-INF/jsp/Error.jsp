@@ -11,6 +11,6 @@
     <title>Error</title>
 </head>
 <body>
-<h2>Department must  have single employee</h2>
+<h2>Department must have single employee</h2>
 </body>
 </html>

@@ -11,6 +11,7 @@ import ru.gruzdov.mvc.service.CityService;
 import ru.gruzdov.mvc.service.DepartmentService;
 import ru.gruzdov.mvc.service.EmployeeService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -38,7 +39,6 @@ public class EmployeeController {
         modelAndView.addObject("employee",employee);
         return modelAndView;
     }
-
     @PostMapping(value = "/updateEmployee")
     public ModelAndView updateEmployee(@ModelAttribute("employee") Employee employee){
         ModelAndView modelAndView=new ModelAndView();
@@ -53,24 +53,28 @@ public class EmployeeController {
         modelAndView.setViewName("addEmployee");
         return modelAndView;
     }
-
     @PostMapping(value = "/addEmployee")
     public ModelAndView addEmployee(@ModelAttribute("employee") Employee employee,
                                     @RequestParam(value = "departmentId", required = false)
-                                              Integer departmentId){
+                                              Integer departmentId)  {
         ModelAndView modelAndView=new ModelAndView();
+        if(departmentService.getDepartmentById(departmentId).equals(employee.getDepartment())){
+            modelAndView.setViewName("Error");
+    }
+    else{
             employee.setDepartment(departmentService.getDepartmentById(departmentId));
             employeeService.addEmployee(employee);
             modelAndView.setViewName("redirect:/employee?id=" + departmentId);
-
+    }
         return  modelAndView;
     }
-    @GetMapping(value ="/deleteEmployee/{id}")
-    public ModelAndView deleteEmployee(@PathVariable ("id") Integer id) {
+    @GetMapping(value ="/deleteEmployee")
+    public ModelAndView deleteEmployee(@RequestParam(value = "id", required = false)
+                                                   Integer id) {
         Employee employee=employeeService.getEmployeeById(id);
         ModelAndView modelAndView = new ModelAndView();
         employeeService.deleteEmployee(employee);
-     modelAndView.setViewName("redirect:/");
+     modelAndView.setViewName("redirect:/employee?id="+id);
         return modelAndView;
     }
 }

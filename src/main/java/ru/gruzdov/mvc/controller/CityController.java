@@ -18,8 +18,7 @@ import java.util.List;
 public class CityController {
     @Autowired
     private CityService cityService;
-    @Autowired
-    private DepartmentService departmentService;
+
 
     @GetMapping(value = "/")
     public ModelAndView getAll() {
@@ -28,20 +27,8 @@ public class CityController {
         modelAndView.setViewName("city");
         modelAndView.addObject("CityFromServer",city);
         return modelAndView;
-
     }
-
-    @GetMapping(value ="/depofcity/{id}")//место параметра в адресной строке
-    public ModelAndView getDepOfCity(@PathVariable Integer id){
-        //City city=cityService.getCityById(id);
-        List<Department> departments=cityService.getDepByCityId(id);
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("depofcity");
-        modelAndView.addObject("AllDepartment",departments);
-        return modelAndView;
-    }
-
-    @GetMapping(value ="/updateCity/{id}")//место параметра в адресной строке
+    @GetMapping(value ="/updateCity/{id}")
     public ModelAndView updatePage(@PathVariable Integer id){
         City city=cityService.getCityById(id);
         ModelAndView modelAndView=new ModelAndView();
@@ -49,7 +36,6 @@ public class CityController {
         modelAndView.addObject("city",city);
         return modelAndView;
     }
-
     @PostMapping(value = "/updateCity")
     public ModelAndView updateCity(@ModelAttribute("city") City city){
         ModelAndView modelAndView=new ModelAndView();
@@ -57,8 +43,6 @@ public class CityController {
         cityService.updateCity(city);
         return  modelAndView;
     }
-
-
     @GetMapping(value="/addCity")
     public ModelAndView addPage(){
         ModelAndView modelAndView= new ModelAndView();

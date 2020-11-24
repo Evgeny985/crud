@@ -19,17 +19,13 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID_EMPLOYEE")
     private Integer id;
-@Column(name="FIRST_NAME")
+    @Column(name="FIRST_NAME")
     private String firstName;
     @Column(name="LAST_NAME")
     private String lastName;
-
-    //@Temporal (value = TemporalType.DATE)
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="DEPARTMENT_ID")
     private Department department;
-    //private Department employee;
 
 
 

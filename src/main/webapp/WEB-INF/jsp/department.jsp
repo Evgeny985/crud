@@ -43,7 +43,6 @@
     </c:forEach>
     </table>
 
-
     <c:url value="/addDepartment" var="addDepartment"/>
     <a href="${addDepartment}">Add Department</a>
 <c:url value="/" var="city"/>

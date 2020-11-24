@@ -13,8 +13,6 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService{
     @Autowired
     private DepartmentDAO departmentDAO;
-    @Autowired
-    private CityDAO cityDAO;
     @Override
     @Transactional
     public void addDepartment(Department department) {

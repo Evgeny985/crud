@@ -14,7 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-// @ToString, @EqualsAndHashCode,Getter, Setter, @RequiredArgsConstructor
 @Entity
 @Table(name="CITY")
 public class City {

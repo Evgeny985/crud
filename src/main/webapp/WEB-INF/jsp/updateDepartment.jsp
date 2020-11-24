@@ -10,14 +10,19 @@
 <html>
 <head>
     <title>Update Department</title>
+
 </head>
 <body>
 <c:url value="/updateDepartment" var="var"/>
 <form action="${var}" method="POST">
     <input type="hidden"  value="${department.id}" name="id">
+    <label >City</label>
+    <input type="text" name="cityId">
     <label for="name">Department</label>
     <input type="text" name="name" id="name">
-    <input type="submit" value="Update department">
+    <input type="submit" value="Update department" >
+
 </form>
+
 </body>
 </html>

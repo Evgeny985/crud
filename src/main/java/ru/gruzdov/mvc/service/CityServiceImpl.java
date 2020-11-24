@@ -50,9 +50,5 @@ public class CityServiceImpl implements CityService{
         return this.cityDAO.getAllCity();
     }
 
-    @Override
-    @Transactional
-    public List<Department> getDepByCityId(Integer id) {
-        return this.departmentDAO.getAllDepartmentByCityId(id);
-    }
+
 }

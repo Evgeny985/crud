@@ -10,8 +10,6 @@ import ru.gruzdov.mvc.model.Employee;
 import ru.gruzdov.mvc.service.CityService;
 import ru.gruzdov.mvc.service.DepartmentService;
 import ru.gruzdov.mvc.service.EmployeeService;
-
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -20,6 +18,8 @@ public class EmployeeController {
     private DepartmentService departmentService;
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private CityService cityService;
 
 
     @GetMapping(value = "/employee")
@@ -30,20 +30,32 @@ public class EmployeeController {
         modelAndView.addObject("EmployeeFromServer",employee);
         return modelAndView;
     }
-
-    @GetMapping(value ="/updateEmployee/{id}")//место параметра в адресной строке
+    @GetMapping(value ="/updateEmployee/{id}")
     public ModelAndView updatePage(@PathVariable Integer id){
         Employee employee=employeeService.getEmployeeById(id);
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("updateEmployee");
         modelAndView.addObject("employee",employee);
+        modelAndView.setViewName("updateEmployee");
         return modelAndView;
     }
     @PostMapping(value = "/updateEmployee")
-    public ModelAndView updateEmployee(@ModelAttribute("employee") Employee employee){
+    public ModelAndView updateEmployee(@ModelAttribute("employee") Employee employee,
+                                       @RequestParam(value = "departmentId", required = false)
+                                               Integer departmentId,
+                                       @RequestParam(value = "cityId", required = false)
+                                                   Integer cityId){
+        City city=cityService.getCityById(cityId);
+        Department department=departmentService.getDepartmentById(departmentId);
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("redirect:/");
-        employeeService.updateEmployee(employee);
+        if(city!=null & department!=null) {
+            department.setCity(city);
+            employee.setDepartment(department);
+            employeeService.updateEmployee(employee);
+            modelAndView.setViewName("redirect:/employee?id=" + departmentId);
+        }
+        else{
+            modelAndView.setViewName("Error");
+        }
         return  modelAndView;
     }
     @GetMapping(value="/addEmployee")
@@ -58,23 +70,18 @@ public class EmployeeController {
                                     @RequestParam(value = "departmentId", required = false)
                                               Integer departmentId)  {
         ModelAndView modelAndView=new ModelAndView();
-        if(departmentService.getDepartmentById(departmentId).equals(employee.getDepartment())){
-            modelAndView.setViewName("Error");
-    }
-    else{
             employee.setDepartment(departmentService.getDepartmentById(departmentId));
             employeeService.addEmployee(employee);
             modelAndView.setViewName("redirect:/employee?id=" + departmentId);
-    }
         return  modelAndView;
     }
-    @GetMapping(value ="/deleteEmployee")
-    public ModelAndView deleteEmployee(@RequestParam(value = "id", required = false)
+    @GetMapping(value ="/deleteEmployee/{id}")
+    public ModelAndView deleteEmployee(@PathVariable
                                                    Integer id) {
         Employee employee=employeeService.getEmployeeById(id);
         ModelAndView modelAndView = new ModelAndView();
         employeeService.deleteEmployee(employee);
-     modelAndView.setViewName("redirect:/employee?id="+id);
+        modelAndView.setViewName("redirect:/employee?id="+employee.getDepartment().getId());
         return modelAndView;
     }
 }

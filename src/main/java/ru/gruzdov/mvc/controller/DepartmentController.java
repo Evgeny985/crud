@@ -29,50 +29,57 @@ public class DepartmentController {
         return modelAndView;
     }
 
-    @GetMapping(value ="/updateDepartment/{id}")//место параметра в адресной строке
-    public ModelAndView updatePage(@PathVariable Integer id){
+    @GetMapping(value ="/updateDepartment/{id}")
+    public ModelAndView updatePage(@PathVariable Integer id
+                                  ){
         Department department=departmentService.getDepartmentById(id);
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("updateDepartment");
         modelAndView.addObject("department",department);
+        modelAndView.setViewName("updateDepartment");
         return modelAndView;
     }
     @PostMapping(value = "/updateDepartment")
-    public ModelAndView updateDepartment(@ModelAttribute("department") Department department){
+    public ModelAndView updateDepartment(
+            @ModelAttribute("department") Department department,
+            @RequestParam(value = "cityId", required = false)
+                    Integer cityId){
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("department");
+        City city=cityService.getCityById(cityId);
+        if(city!=null) {
+        department.setCity(cityService.getCityById(cityId));
         departmentService.updateDepartment(department);
+        modelAndView.setViewName("redirect:/department?id="+cityId);
+        }
+        else
+        {
+            modelAndView.setViewName("Error");
+        }
         return  modelAndView;
     }
     @GetMapping(value="/addDepartment")
-    public ModelAndView addPage(@ModelAttribute("city") City city,
-                                @RequestParam(value = "cityId", required = false)
-                                        Integer cityId){
+    public ModelAndView addPage(@ModelAttribute("city") City city){
         ModelAndView modelAndView= new ModelAndView();
         modelAndView.addObject("city",city);
         modelAndView.setViewName("addDepartment");
         return modelAndView;
     }
-
     @PostMapping(value = "/addDepartment")
     public ModelAndView addDepartment(@ModelAttribute("department") Department department,
                                       @RequestParam(value = "cityId", required = false)
                                               Integer cityId){
-
         ModelAndView modelAndView=new ModelAndView();
+            department.setCity(cityService.getCityById(cityId));
+            departmentService.addDepartment(department);
+            modelAndView.setViewName("redirect:/department?id=" + cityId);
 
-        department.setCity(cityService.getCityById(cityId));
-        departmentService.addDepartment(department);
-        modelAndView.setViewName("redirect:/department?id="+cityId);
         return  modelAndView;
     }
-
     @GetMapping(value ="/deleteDepartment/{id}")
     public ModelAndView deleteDepartment(@PathVariable ("id") Integer id){
             Department department = departmentService.getDepartmentById(id);
             ModelAndView modelAndView = new ModelAndView();
             departmentService.deleteDepartment(department);
-            modelAndView.setViewName("redirect:/");
+            modelAndView.setViewName("redirect:/department?id="+department.getCity().getId());
     return modelAndView;
     }
 }

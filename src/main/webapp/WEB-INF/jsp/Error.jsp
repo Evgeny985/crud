@@ -9,8 +9,14 @@
 <html>
 <head>
     <title>Error</title>
+    <script>
+        function Previous() {
+            window.history.go(-2);
+        }
+    </script>
 </head>
 <body>
-<h2>Department must have single employee</h2>
+<h2>The  City Id or Department Id  DOESN'T EXIST? </h2>
+<input type="button" value="Back" onclick="Previous()">
 </body>
 </html>

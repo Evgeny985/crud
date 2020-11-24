@@ -9,15 +9,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
-
-
 <html>
 <head>
     <meta charset="ISO-8859-1">
-
 </head>
 <script>
     function validateForm() {
@@ -39,21 +35,17 @@
 <form action="${department}" name="registration_form" onsubmit="return validateForm()" method="POST">
     <table>
          <tr>
-
             <td>
                 <label>City</label>
                 <input type="text" name="cityId" >
-
             </td>
         </tr>
         <tr>
             <td>
                 <label for="name">Department</label>
             <input type="text" name="name" id="name">
-
             </td>
         </tr>
-
         <tr>
             <td><input type="submit" value="Add Department"></td>
         </tr>

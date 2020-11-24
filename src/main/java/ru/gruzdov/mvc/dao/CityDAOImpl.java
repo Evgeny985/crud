@@ -19,14 +19,14 @@ public class CityDAOImpl implements CityDAO {
 
     @Override
     public void addCity(City city) {
-       sessionFactory.getCurrentSession().persist(city);//присоед объект к сессии и сохр в БД
+       sessionFactory.getCurrentSession().persist(city);
 
     }
 
 
     @Override
     public City getCityById(Integer id) {
-        return sessionFactory.getCurrentSession().get(City.class, id);//получ ид сущн в стутсе персист
+        return sessionFactory.getCurrentSession().get(City.class, id);
     }
 
     @Override
@@ -54,11 +54,4 @@ public class CityDAOImpl implements CityDAO {
         return sessionFactory.getCurrentSession().createQuery("select name from Department where id=city.id").list();
     }
 
-  /*  public boolean checkTitle(String title) {
-        Session session = sessionFactory.getCurrentSession();
-        Query query;
-        query = session.createQuery("from City where title = :title");
-        query.setParameter("title", title);
-        return query.list().isEmpty();
-    }*/
 }

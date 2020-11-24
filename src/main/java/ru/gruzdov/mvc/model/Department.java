@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -22,8 +24,8 @@ public class Department {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="CITY_ID")
     private City city;
-    @OneToOne(mappedBy = "department")
-    private Employee employee;
+    @OneToMany(mappedBy = "department")
+    private List<Employee> employee;
 
 
 }

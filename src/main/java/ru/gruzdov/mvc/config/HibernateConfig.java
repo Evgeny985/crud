@@ -32,7 +32,7 @@ public class HibernateConfig {
         return properties;
     }
     @Bean
-    public DataSource dataSource() { //используется для создания соединения с БД
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("db.driverClassName"));
         dataSource.setUsername(environment.getRequiredProperty("db.username"));

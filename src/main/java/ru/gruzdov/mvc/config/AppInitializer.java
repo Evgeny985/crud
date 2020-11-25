@@ -14,7 +14,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new Class[]{WebConfig.class};
     }
 
-    protected String[] getServletMappings() {// регистр адреса
+    protected String[] getServletMappings() {
         return new String[]{"/"};
     }
 

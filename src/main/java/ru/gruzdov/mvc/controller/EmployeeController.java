@@ -7,81 +7,82 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.gruzdov.mvc.model.City;
 import ru.gruzdov.mvc.model.Department;
 import ru.gruzdov.mvc.model.Employee;
-import ru.gruzdov.mvc.service.CityService;
+import ru.gruzdov.mvc.service.CityService; 
 import ru.gruzdov.mvc.service.DepartmentService;
 import ru.gruzdov.mvc.service.EmployeeService;
+
 import java.util.List;
 
 @Controller
 public class EmployeeController {
     @Autowired
     private DepartmentService departmentService;
+
     @Autowired
     private EmployeeService employeeService;
+
     @Autowired
     private CityService cityService;
 
-
     @GetMapping(value = "/employee")
-    public ModelAndView getAllEmployee(@RequestParam  Integer id) {
-        List<Employee> employee=employeeService.getAllEmployeeByDepartmentId(id);
+    public ModelAndView getAllEmployee(@RequestParam Integer id) {
+        List<Employee> employee = employeeService.getAllEmployeeByDepartmentId(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("employee");
-        modelAndView.addObject("EmployeeFromServer",employee);
+        modelAndView.addObject("employeeFromServer", employee);
         return modelAndView;
     }
-    @GetMapping(value ="/updateEmployee/{id}")
-    public ModelAndView updatePage(@PathVariable Integer id){
-        Employee employee=employeeService.getEmployeeById(id);
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("employee",employee);
+
+    @GetMapping(value = "/updateEmployee/{id}")
+    public ModelAndView updatePage(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("employee", employeeService.getEmployeeById(id));
         modelAndView.setViewName("updateEmployee");
         return modelAndView;
     }
+
     @PostMapping(value = "/updateEmployee")
     public ModelAndView updateEmployee(@ModelAttribute("employee") Employee employee,
-                                       @RequestParam(value = "departmentId", required = false)
-                                               Integer departmentId,
-                                       @RequestParam(value = "cityId", required = false)
-                                                   Integer cityId){
-        City city=cityService.getCityById(cityId);
-        Department department=departmentService.getDepartmentById(departmentId);
-        ModelAndView modelAndView=new ModelAndView();
-        if(city!=null & department!=null) {
+                                       @RequestParam(value = "departmentId", required = false) Integer departmentId,
+                                       @RequestParam(value = "cityId", required = false) Integer cityId) {
+        City city = cityService.getCityById(cityId);
+        Department department = departmentService.getDepartmentById(departmentId);
+        ModelAndView modelAndView = new ModelAndView();
+        if (city != null & department != null) {
             department.setCity(city);
             employee.setDepartment(department);
             employeeService.updateEmployee(employee);
             modelAndView.setViewName("redirect:/employee?id=" + departmentId);
-        }
-        else{
+        } else {
             modelAndView.setViewName("Error");
         }
-        return  modelAndView;
+        return modelAndView;
     }
-    @GetMapping(value="/addEmployee")
-    public ModelAndView addPage(@ModelAttribute ("department")Department department){
-        ModelAndView modelAndView= new ModelAndView();
-        modelAndView.addObject("department",department);
+
+    @GetMapping(value = "/addEmployee")
+    public ModelAndView addPage(@ModelAttribute("department") Department department) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("department", department);
         modelAndView.setViewName("addEmployee");
         return modelAndView;
     }
+
     @PostMapping(value = "/addEmployee")
     public ModelAndView addEmployee(@ModelAttribute("employee") Employee employee,
-                                    @RequestParam(value = "departmentId", required = false)
-                                              Integer departmentId)  {
-        ModelAndView modelAndView=new ModelAndView();
-            employee.setDepartment(departmentService.getDepartmentById(departmentId));
-            employeeService.addEmployee(employee);
-            modelAndView.setViewName("redirect:/employee?id=" + departmentId);
-        return  modelAndView;
+                                    @RequestParam(value = "departmentId", required = false) Integer departmentId) {
+        ModelAndView modelAndView = new ModelAndView();
+        employee.setDepartment(departmentService.getDepartmentById(departmentId));
+        employeeService.addEmployee(employee);
+        modelAndView.setViewName("redirect:/employee?id=" + departmentId);
+        return modelAndView;
     }
-    @GetMapping(value ="/deleteEmployee/{id}")
-    public ModelAndView deleteEmployee(@PathVariable
-                                                   Integer id) {
-        Employee employee=employeeService.getEmployeeById(id);
+
+    @GetMapping(value = "/deleteEmployee/{id}")
+    public ModelAndView deleteEmployee(@PathVariable Integer id) {
+        Employee employee = employeeService.getEmployeeById(id);
         ModelAndView modelAndView = new ModelAndView();
         employeeService.deleteEmployee(employee);
-        modelAndView.setViewName("redirect:/employee?id="+employee.getDepartment().getId());
+        modelAndView.setViewName("redirect:/employee?id=" + employee.getDepartment().getId());
         return modelAndView;
     }
 }

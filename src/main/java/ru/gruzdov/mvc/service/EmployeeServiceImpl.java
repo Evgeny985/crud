@@ -7,8 +7,10 @@ import ru.gruzdov.mvc.dao.EmployeeDAO;
 import ru.gruzdov.mvc.model.Employee;
 
 import java.util.List;
+
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
+
     @Autowired
     private EmployeeDAO employeeDAO;
 
@@ -27,13 +29,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     @Transactional
     public void updateEmployee(Employee employee) {
-this.employeeDAO.updateEmployee(employee);
+        this.employeeDAO.updateEmployee(employee);
     }
 
     @Override
     @Transactional
     public void deleteEmployee(Employee employee) {
-this.employeeDAO.deleteEmployee(employee);
+        this.employeeDAO.deleteEmployee(employee);
     }
 
     @Override

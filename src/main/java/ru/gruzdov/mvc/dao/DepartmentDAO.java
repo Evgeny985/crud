@@ -7,11 +7,12 @@ import java.util.List;
 
 public interface DepartmentDAO {
     void addDepartment(Department department);
+
     Department getDepartmentById(Integer id);
+
     void updateDepartment(Department department);
+
     void deleteDepartment(Department department);
+
     List<Department> getAllDepartmentByCityId(Integer cityid);
-
-
-
 }

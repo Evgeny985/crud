@@ -4,21 +4,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.gruzdov.mvc.model.City;
 import ru.gruzdov.mvc.model.Department;
 
 import java.util.List;
+
 @Repository
 public class DepartmentDAOImpl implements DepartmentDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-
     @Override
-    public void addDepartment (Department department) {
+    public void addDepartment(Department department) {
         sessionFactory.getCurrentSession().persist(department);
     }
-
 
     @Override
     public Department getDepartmentById(Integer id) {
@@ -39,9 +37,6 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     @SuppressWarnings("unchecked")
     public List<Department> getAllDepartmentByCityId(Integer cityId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("SELECT d from Department d join d.city c  where c.id=:id").setInteger("id",cityId).list();
+        return session.createQuery("SELECT d from Department d join d.city c  where c.id=:id").setInteger("id", cityId).list();
     }
-
-
-
 }

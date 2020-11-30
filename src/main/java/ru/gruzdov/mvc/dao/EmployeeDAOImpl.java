@@ -7,14 +7,15 @@ import org.springframework.stereotype.Repository;
 import ru.gruzdov.mvc.model.Employee;
 
 import java.util.List;
+
 @Repository
-public class EmployeeDAOImpl implements EmployeeDAO{
+public class EmployeeDAOImpl implements EmployeeDAO {
     @Autowired
     SessionFactory sessionFactory;
+
     @Override
     public void addEmployee(Employee employee) {
         sessionFactory.getCurrentSession().persist(employee);
-
     }
 
     @Override
@@ -25,18 +26,17 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     @Override
     public void updateEmployee(Employee employee) {
         sessionFactory.getCurrentSession().update(employee);
-
     }
 
     @Override
     public void deleteEmployee(Employee employee) {
-sessionFactory.getCurrentSession().delete(employee);
+        sessionFactory.getCurrentSession().delete(employee);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Employee> getAllEmployeeByDepartmentId(Integer departmentId ) {
+    public List<Employee> getAllEmployeeByDepartmentId(Integer departmentId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("SELECT e from Employee e join e.department d  where d.id=:id").setParameter("id",departmentId).list();
+        return session.createQuery("SELECT e from Employee e join e.department d  where d.id=:id").setParameter("id", departmentId).list();
     }
 }

@@ -22,7 +22,7 @@
         <th>Department Id</th>
         <th>action</th>
     </tr>
-    <c:forEach var="employee" items="${EmployeeFromServer}">
+    <c:forEach var="employee" items="${employeeFromServer}">
         <tr>
             <td>${employee.id}</td>
             <td>${employee.firstName}</td>

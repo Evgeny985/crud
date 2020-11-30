@@ -15,14 +15,10 @@ public class CityDAOImpl implements CityDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-
-
     @Override
     public void addCity(City city) {
-       sessionFactory.getCurrentSession().persist(city);
-
+        sessionFactory.getCurrentSession().persist(city);
     }
-
 
     @Override
     public City getCityById(Integer id) {
@@ -32,12 +28,11 @@ public class CityDAOImpl implements CityDAO {
     @Override
     public void updateCity(City city) {
         sessionFactory.getCurrentSession().update(city);
-
     }
 
     @Override
     public void deleteCity(City city) {
-     sessionFactory.getCurrentSession().delete(city);
+        sessionFactory.getCurrentSession().delete(city);
     }
 
     @Override
@@ -50,7 +45,6 @@ public class CityDAOImpl implements CityDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Department> getDepByCityId(Integer cityid) {
-
         return sessionFactory.getCurrentSession().createQuery("select name from Department where id=city.id").list();
     }
 

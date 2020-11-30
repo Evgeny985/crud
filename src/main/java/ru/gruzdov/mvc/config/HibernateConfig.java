@@ -1,8 +1,6 @@
 package ru.gruzdov.mvc.config;
 
 
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,10 +18,11 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = "ru.gruzdov.mvc")
 @EnableTransactionManagement
-@PropertySource(value="classpath:db.property")
+@PropertySource(value = "classpath:db.property")
 public class HibernateConfig {
     @Autowired
     private Environment environment;
+
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
@@ -31,6 +30,7 @@ public class HibernateConfig {
         properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
         return properties;
     }
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -40,6 +40,7 @@ public class HibernateConfig {
         dataSource.setUrl(environment.getRequiredProperty("db.url"));
         return dataSource;
     }
+
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -48,11 +49,11 @@ public class HibernateConfig {
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
+
     @Bean
     public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
-
 }

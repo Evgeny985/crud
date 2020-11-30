@@ -22,7 +22,7 @@
         <th>CITY_ID   </th>
         <th>action</th>
     </tr>
-    <c:forEach var="department" items="${DepartmentFromServer}">
+    <c:forEach var="department" items="${departmentFromServer}">
         <tr>
             <td>
                     ${department.id}

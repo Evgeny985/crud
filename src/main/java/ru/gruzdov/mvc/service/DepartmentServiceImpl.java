@@ -13,12 +13,12 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService{
     @Autowired
     private DepartmentDAO departmentDAO;
+
     @Override
     @Transactional
     public void addDepartment(Department department) {
         this.departmentDAO.addDepartment(department);
     }
-
 
     @Override
     @Transactional
@@ -36,7 +36,6 @@ this.departmentDAO.updateDepartment(department);
     @Transactional
     public void deleteDepartment(Department department) {
         this.departmentDAO.deleteDepartment(department);
-
     }
 
     @Override

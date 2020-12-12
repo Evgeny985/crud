@@ -14,17 +14,16 @@
 <body>
 <c:url value="/updateEmployee" var="var"/>
 <form action="${var}" method="POST">
-    <input type="hidden"  value="${employee.id}" name="id">
+    <input type="hidden" value="${employee.id}" name="id">
     <label for="firstName">FirstName</label>
     <input type="text" name="firstName" id="firstName">
     <label for="lastName">LastName</label>
     <input type="text" name="lastName" id="lastName">
-    <label >City</label>
+    <label>City</label>
     <input type="text" name="cityId">
-    <label >Department</label>
+    <label>Department</label>
     <input type="text" name="departmentId">
     <input type="submit" value="Update Employee">
-
 </form>
 </body>
 </html>

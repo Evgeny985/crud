@@ -2,10 +2,7 @@ package ru.gruzdov.mvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.gruzdov.mvc.model.City;
 import ru.gruzdov.mvc.service.CityService;
@@ -13,55 +10,56 @@ import ru.gruzdov.mvc.service.CityService;
 import java.util.List;
 
 @Controller
+@RequestMapping("/city")
 public class CityController {
     @Autowired
     private CityService cityService;
 
-    @GetMapping(value = "/")
+    @GetMapping()
     public ModelAndView getAll() {
-        List<City> city = cityService.getAllCity();
+        List<City> cityList = cityService.getAllCity();
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("cityFromServer", cityList);
         modelAndView.setViewName("city");
-        modelAndView.addObject("CityFromServer", city);
         return modelAndView;
     }
 
-    @GetMapping(value = "/updateCity/{id}")
+    @GetMapping(value = "/{id}/edit")
     public ModelAndView updatePage(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("updateCity");
         modelAndView.addObject("city", cityService.getCityById(id));
+        modelAndView.setViewName("updateCity");
         return modelAndView;
     }
 
-    @PostMapping(value = "/updateCity")
+    @PatchMapping()
     public ModelAndView updateCity(@ModelAttribute("city") City city) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
         cityService.updateCity(city);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/city");
         return modelAndView;
     }
 
-    @GetMapping(value = "/addCity")
+    @GetMapping(value = "/new")
     public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("addCity");
         return modelAndView;
     }
 
-    @PostMapping(value = "/addCity")
+    @PostMapping()
     public ModelAndView addCity(@ModelAttribute("city") City city) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
         cityService.addCity(city);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/city");
         return modelAndView;
     }
 
-    @GetMapping(value = "/deleteCity/{id}")
-    public ModelAndView deleteCity(@PathVariable("id") int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
+    @DeleteMapping(value = "/{id}")
+    public ModelAndView deleteCity(@PathVariable("id") Integer id) {
         cityService.deleteCity(cityService.getCityById(id));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/city");
         return modelAndView;
     }
 }

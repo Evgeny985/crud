@@ -1,7 +1,6 @@
 package ru.gruzdov.mvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,12 +19,12 @@ public class DepartmentController {
     @Autowired
     private CityService cityService;
 
-    @GetMapping(value = "/department")
-    public ModelAndView getAllDepartment(@RequestParam Integer id) {
-        List<Department> department = departmentService.getAllDepartmentByCityId(id);
+    @GetMapping(value = "/department/{cityId}")
+    public ModelAndView getAllDepartment(@PathVariable Integer cityId) {
+        List<Department> departmentList = departmentService.getAllDepartmentByCityId(cityId);
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("departmentFromServer", departmentList);
         modelAndView.setViewName("department");
-        modelAndView.addObject("departmentFromServer", department);
         return modelAndView;
     }
 
@@ -39,11 +38,11 @@ public class DepartmentController {
 
     @PostMapping(value = "/updateDepartment")
     public ModelAndView updateDepartment(@ModelAttribute("department") Department department,
-                                         @RequestParam(value = "cityId", required = false) Integer cityId) {
+                                         @RequestParam(value = "cityId", required = true) Integer cityId) {
         ModelAndView modelAndView = new ModelAndView();
         City city = cityService.getCityById(cityId);
         if (city != null) {
-            department.setCity(cityService.getCityById(cityId));
+            department.setCity(city);
             departmentService.updateDepartment(department);
             modelAndView.setViewName("redirect:/department?id=" + cityId);
         } else {
@@ -64,10 +63,15 @@ public class DepartmentController {
     public ModelAndView addDepartment(@ModelAttribute("department") Department department,
                                       @RequestParam(value = "cityId", required = false) Integer cityId) {
         ModelAndView modelAndView = new ModelAndView();
-        department.setCity(cityService.getCityById(cityId));
-        departmentService.addDepartment(department);
-        modelAndView.setViewName("redirect:/department?id=" + cityId);
-        return modelAndView;
+        City city = cityService.getCityById(cityId);
+        if (city != null) {
+            department.setCity(city);
+            departmentService.addDepartment(department);
+            modelAndView.setViewName("redirect:/department?id=" + cityId);
+        } else {
+            modelAndView.setViewName("Error");
+        }
+         return modelAndView;
     }
 
     @GetMapping(value = "/deleteDepartment/{id}")

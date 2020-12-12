@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public void addEmployee(Employee employee) {

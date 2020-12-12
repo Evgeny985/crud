@@ -24,8 +24,8 @@ public class EmployeeController {
     @Autowired
     private CityService cityService;
 
-    @GetMapping(value = "/employee")
-    public ModelAndView getAllEmployee(@RequestParam Integer id) {
+    @GetMapping(value = "/employee/{id}")
+    public ModelAndView getAllEmployee(@PathVariable Integer id) {
         List<Employee> employee = employeeService.getAllEmployeeByDepartmentId(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("employee");

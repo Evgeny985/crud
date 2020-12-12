@@ -31,7 +31,6 @@
 </script>
 <body>
     <c:url value="/addDepartment" var="department"/>
-
 <form action="${department}" name="registration_form" onsubmit="return validateForm()" method="POST">
     <table>
          <tr>

@@ -9,14 +9,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-
     <title>Update</title>
-
 </head>
 <body>
-<c:url value="/updateCity" var="var"/>
-<form action="${var}" method="POST">
-    <input type="hidden"  value="${city.id}" name="id">
+<c:url value="/city" var="var"/>
+<form action="${city.id}" method="POST">
+    <input type="hidden"  value="patch" name="_method">
     <label for="name">City</label>
     <input type="text" name="name" id="name">
     <input type="submit" value="Update city">

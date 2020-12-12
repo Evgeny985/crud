@@ -19,10 +19,10 @@ public class CityController {
 
     @GetMapping(value = "/")
     public ModelAndView getAll() {
-        List<City> city = cityService.getAllCity();
+        List<City> cityList = cityService.getAllCity();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("city");
-        modelAndView.addObject("CityFromServer", city);
+        modelAndView.addObject("cityFromServer", cityList);
         return modelAndView;
     }
 
@@ -51,9 +51,9 @@ public class CityController {
 
     @PostMapping(value = "/addCity")
     public ModelAndView addCity(@ModelAttribute("city") City city) {
+        cityService.addCity(city);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
-        cityService.addCity(city);
         return modelAndView;
     }
 

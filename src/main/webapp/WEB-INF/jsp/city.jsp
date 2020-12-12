@@ -20,12 +20,12 @@
         <th>City</th>
         <th>action</th>
     </tr>
-    <c:forEach var="city" items="${CityFromServer}">
+    <c:forEach var="city" items="${cityFromServer}">
         <tr>
             <td>${city.id}</td>
        <td>
-           <c:url value="/department" var="department"/>
-           <a href="${pageContext.request.contextPath}/department?id=${city.id}">${city.name}</a>
+           <c:url value="/department/${city.id}" var="department"/>
+           <a href="/department/${city.id}">${city.name}</a>
        </td>
             <td>
                 <a href="/updateCity/${city.id}">update</a>

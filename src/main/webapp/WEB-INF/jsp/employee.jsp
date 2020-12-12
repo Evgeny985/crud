@@ -36,7 +36,7 @@
     </c:forEach>
     </table>
 <c:url value="/addEmployee" var="addEmployee"/>
-<a href="${addEmployee}">Add Employee</a>
+<a href="${addEmployee}">Add</a>
 <c:url value="/employee" var="employee"/>
 </body>
 </html>

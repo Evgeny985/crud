@@ -5,7 +5,7 @@
   Time: 18:58
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -15,11 +15,11 @@
 <body>
 <h2>Department</h2>
 
-    <table>
+<table>
     <tr>
-        <th>ID </th>
-        <th>Department </th>
-        <th>CITY_ID   </th>
+        <th>ID</th>
+        <th>Department</th>
+        <th>CITY_ID</th>
         <th>action</th>
     </tr>
     <c:forEach var="department" items="${departmentFromServer}">
@@ -36,15 +36,15 @@
 
             <td>
                 <a href="/updateDepartment/${department.id}">update</a>
-                <a href="/deleteDepartment/${department.id}" >delete</a>
+                <a href="/deleteDepartment/${department.id}">delete</a>
             </td>
         </tr>
 
     </c:forEach>
-    </table>
+</table>
 
-    <c:url value="/addDepartment" var="addDepartment"/>
-    <a href="${addDepartment}">Add Department</a>
+<c:url value="/addDepartment" var="addDepartment"/>
+<a href="${addDepartment}">Add Department</a>
 <c:url value="/" var="city"/>
 <a href="${city}">Back to City page</a>
 

@@ -24,12 +24,12 @@ public class EmployeeController {
     @Autowired
     private CityService cityService;
 
-    @GetMapping(value = "/employee")
-    public ModelAndView getAllEmployee(@RequestParam Integer id) {
-        List<Employee> employee = employeeService.getAllEmployeeByDepartmentId(id);
+    @GetMapping(value = "/employee/{id}")
+    public ModelAndView getAllEmployee(@PathVariable Integer id) {
+        List<Employee> employeeList = employeeService.getAllEmployeeByDepartmentId(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("employee");
-        modelAndView.addObject("employeeFromServer", employee);
+        modelAndView.addObject("employeeFromServer", employeeList);
         return modelAndView;
     }
 
@@ -43,16 +43,15 @@ public class EmployeeController {
 
     @PostMapping(value = "/updateEmployee")
     public ModelAndView updateEmployee(@ModelAttribute("employee") Employee employee,
-                                       @RequestParam(value = "departmentId", required = false) Integer departmentId,
-                                       @RequestParam(value = "cityId", required = false) Integer cityId) {
+                                       Integer departmentId, Integer cityId) {
         City city = cityService.getCityById(cityId);
         Department department = departmentService.getDepartmentById(departmentId);
         ModelAndView modelAndView = new ModelAndView();
-        if (city != null & department != null) {
+        if (city != null && department != null) {
             department.setCity(city);
             employee.setDepartment(department);
             employeeService.updateEmployee(employee);
-            modelAndView.setViewName("redirect:/employee?id=" + departmentId);
+            modelAndView.setViewName("redirect:/employee/" + departmentId);
         } else {
             modelAndView.setViewName("Error");
         }
@@ -60,20 +59,24 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/addEmployee")
-    public ModelAndView addPage(@ModelAttribute("department") Department department) {
+    public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("department", department);
         modelAndView.setViewName("addEmployee");
         return modelAndView;
     }
 
     @PostMapping(value = "/addEmployee")
     public ModelAndView addEmployee(@ModelAttribute("employee") Employee employee,
-                                    @RequestParam(value = "departmentId", required = false) Integer departmentId) {
+                                    Integer departmentId) {
+        Department department = departmentService.getDepartmentById(departmentId);
         ModelAndView modelAndView = new ModelAndView();
-        employee.setDepartment(departmentService.getDepartmentById(departmentId));
-        employeeService.addEmployee(employee);
-        modelAndView.setViewName("redirect:/employee?id=" + departmentId);
+        if (department != null) {
+            employee.setDepartment(department);
+            employeeService.addEmployee(employee);
+            modelAndView.setViewName("redirect:/employee/" + departmentId);
+        } else {
+            modelAndView.setViewName("Error");
+        }
         return modelAndView;
     }
 
@@ -82,7 +85,7 @@ public class EmployeeController {
         Employee employee = employeeService.getEmployeeById(id);
         ModelAndView modelAndView = new ModelAndView();
         employeeService.deleteEmployee(employee);
-        modelAndView.setViewName("redirect:/employee?id=" + employee.getDepartment().getId());
+        modelAndView.setViewName("redirect:/employee/" + employee.getDepartment().getId());
         return modelAndView;
     }
 }

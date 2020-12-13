@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gruzdov.mvc.dao.DepartmentDAO;
-import ru.gruzdov.mvc.model.City;
 import ru.gruzdov.mvc.model.Department;
-import ru.gruzdov.mvc.dao.CityDAO;
+
 
 import java.util.List;
 @Service

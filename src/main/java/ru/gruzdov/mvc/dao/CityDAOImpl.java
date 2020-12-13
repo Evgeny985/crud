@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public class CityDAOImpl implements CityDAO {
-
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -41,11 +40,4 @@ public class CityDAOImpl implements CityDAO {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from City").list();
     }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<Department> getDepByCityId(Integer cityid) {
-        return sessionFactory.getCurrentSession().createQuery("select name from Department where id=city.id").list();
-    }
-
 }

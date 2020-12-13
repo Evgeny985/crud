@@ -60,8 +60,8 @@ public class CityController {
     @GetMapping(value = "/deleteCity/{id}")
     public ModelAndView deleteCity(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
         cityService.deleteCity(cityService.getCityById(id));
+        modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
 }

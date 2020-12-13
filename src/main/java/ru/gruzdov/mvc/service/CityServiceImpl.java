@@ -22,7 +22,7 @@ public class CityServiceImpl implements CityService {
     @Override
     @Transactional
     public City getCityById(Integer id) {
-        return (this.cityDAO.getCityById(id));
+        return this.cityDAO.getCityById(id);
     }
 
     @Override

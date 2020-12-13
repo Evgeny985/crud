@@ -5,7 +5,7 @@
   Time: 18:58
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -14,7 +14,7 @@
 </head>
 <body>
 <h2>Employee</h2>
-    <table>
+<table>
     <tr>
         <th>Id</th>
         <th>FirstName</th>
@@ -34,9 +34,10 @@
             </td>
         </tr>
     </c:forEach>
-    </table>
+</table>
 <c:url value="/addEmployee" var="addEmployee"/>
 <a href="${addEmployee}">Add</a>
-<c:url value="/employee" var="employee"/>
+<c:url value="/" var="city"/>
+<a href="${city}">Back</a>
 </body>
 </html>

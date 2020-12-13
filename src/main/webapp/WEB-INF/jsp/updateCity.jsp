@@ -13,13 +13,22 @@
     <title>Update</title>
 
 </head>
+<script>
+    function validateForm() {
+        var x = document.forms["registration_form"]["name"].value;
+        if (x === "") {
+            alert("Name must be filled out");
+            return false;
+        }
+    }
+</script>
 <body>
 <c:url value="/updateCity" var="var"/>
-<form action="${var}" method="POST">
-    <input type="hidden"  value="${city.id}" name="id">
+<form action="${var}" name="registration_form" onsubmit="return validateForm()" method="POST">
+    <input type="hidden" value="${city.id}" name="id">
     <label for="name">City</label>
     <input type="text" name="name" id="name">
-    <input type="submit" value="Update city">
+    <input type="submit" value="Update">
 </form>
 </body>
 </html>

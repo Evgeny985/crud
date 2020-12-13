@@ -15,6 +15,4 @@ public interface CityDAO {
     void deleteCity(City city);
 
     List<City> getAllCity();
-
-    List<Department> getDepByCityId(Integer id);
 }

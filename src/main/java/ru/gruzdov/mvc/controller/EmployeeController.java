@@ -67,12 +67,11 @@ public class EmployeeController {
 
     @PostMapping(value = "/addEmployee")
     public ModelAndView addEmployee(@ModelAttribute("employee") Employee employee,
-                                    Integer departmentId, Integer cityId) {
-        City city = cityService.getCityById(cityId);
+                                    Integer departmentId) {
         Department department = departmentService.getDepartmentById(departmentId);
         ModelAndView modelAndView = new ModelAndView();
-        if (city != null && department != null) {
-            employee.setDepartment(departmentService.getDepartmentById(departmentId));
+        if (department != null) {
+            employee.setDepartment(department);
             employeeService.addEmployee(employee);
             modelAndView.setViewName("redirect:/employee/" + departmentId);
         } else {

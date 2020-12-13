@@ -16,7 +16,7 @@
     </script>
 </head>
 <body>
-<h2>The  City Id or Department Id  DOESN'T EXIST? </h2>
+<h2>The City Id or Department Id DOESN'T EXIST? </h2>
 <input type="button" value="Back" onclick="Previous()">
 </body>
 </html>

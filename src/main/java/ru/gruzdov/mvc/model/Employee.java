@@ -26,6 +26,4 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
-
-
 }

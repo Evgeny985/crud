@@ -26,8 +26,6 @@ public class Department {
     @JoinColumn(name = "CITY_ID")
     private City city;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Employee> employee;
-
-
 }

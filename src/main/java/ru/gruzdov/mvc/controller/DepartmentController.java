@@ -20,12 +20,12 @@ public class DepartmentController {
     @Autowired
     private CityService cityService;
 
-    @GetMapping(value = "/department")
-    public ModelAndView getAllDepartment(@RequestParam Integer id) {
-        List<Department> department = departmentService.getAllDepartmentByCityId(id);
+    @GetMapping(value = "/department/{id}")
+    public ModelAndView getAllDepartment(@PathVariable Integer id) {
+        List<Department> departmentList = departmentService.getAllDepartmentByCityId(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("department");
-        modelAndView.addObject("departmentFromServer", department);
+        modelAndView.addObject("departmentFromServer", departmentList);
         return modelAndView;
     }
 
@@ -39,13 +39,13 @@ public class DepartmentController {
 
     @PostMapping(value = "/updateDepartment")
     public ModelAndView updateDepartment(@ModelAttribute("department") Department department,
-                                         @RequestParam(value = "cityId", required = false) Integer cityId) {
+                                         Integer cityId) {
         ModelAndView modelAndView = new ModelAndView();
         City city = cityService.getCityById(cityId);
-        if (city != null) {
-            department.setCity(cityService.getCityById(cityId));
+        if (city!=null) {
+            department.setCity(city);
             departmentService.updateDepartment(department);
-            modelAndView.setViewName("redirect:/department?id=" + cityId);
+            modelAndView.setViewName("redirect:/department/" + cityId);
         } else {
             modelAndView.setViewName("Error");
         }
@@ -53,20 +53,24 @@ public class DepartmentController {
     }
 
     @GetMapping(value = "/addDepartment")
-    public ModelAndView addPage(@ModelAttribute("city") City city) {
+    public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("city", city);
         modelAndView.setViewName("addDepartment");
         return modelAndView;
     }
 
     @PostMapping(value = "/addDepartment")
     public ModelAndView addDepartment(@ModelAttribute("department") Department department,
-                                      @RequestParam(value = "cityId", required = false) Integer cityId) {
+                                      Integer cityId) {
         ModelAndView modelAndView = new ModelAndView();
-        department.setCity(cityService.getCityById(cityId));
-        departmentService.addDepartment(department);
-        modelAndView.setViewName("redirect:/department?id=" + cityId);
+        City city = cityService.getCityById(cityId);
+        if (city!=null) {
+            department.setCity(cityService.getCityById(cityId));
+            departmentService.addDepartment(department);
+            modelAndView.setViewName("redirect:/department/" + cityId);
+        } else {
+            modelAndView.setViewName("Error");
+        }
         return modelAndView;
     }
 
@@ -75,7 +79,7 @@ public class DepartmentController {
         Department department = departmentService.getDepartmentById(id);
         ModelAndView modelAndView = new ModelAndView();
         departmentService.deleteDepartment(department);
-        modelAndView.setViewName("redirect:/department?id=" + department.getCity().getId());
+        modelAndView.setViewName("redirect:/department/" + department.getCity().getId());
         return modelAndView;
     }
 }

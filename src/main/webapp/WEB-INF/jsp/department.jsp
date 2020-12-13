@@ -29,8 +29,8 @@
             </td>
 
             <td>
-                <c:url value="/employee" var="employee"/>
-                <a href="${pageContext.request.contextPath}/employee?id=${department.id}">${department.name}</a>
+                <c:url value="/employee/${department.id}" var="employee"/>
+                <a href="/employee/${department.id}">${department.name}</a>
             </td>
             <td>${department.city.id}</td>
 
@@ -46,7 +46,7 @@
 <c:url value="/addDepartment" var="addDepartment"/>
 <a href="${addDepartment}">Add Department</a>
 <c:url value="/" var="city"/>
-<a href="${city}">Back to City page</a>
+<a href="${city}">Back</a>
 
 </body>
 </html>

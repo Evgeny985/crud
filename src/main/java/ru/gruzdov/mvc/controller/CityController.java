@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ru.gruzdov.mvc.model.City;
 import ru.gruzdov.mvc.service.CityService;
-
 import java.util.List;
 
 @Controller

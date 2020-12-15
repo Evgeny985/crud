@@ -1,4 +1,4 @@
-db.url=jdbc:postgresql://localhost:5432/FirstProjectMVC
+db.url=jdbc:postgresql://localhost:5432/database_crud
 db.username=postgres
 db.password=Goodboy11
 db.driverClassName=org.postgresql.Driver

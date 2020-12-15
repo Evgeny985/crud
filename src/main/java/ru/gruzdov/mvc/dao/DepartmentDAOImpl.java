@@ -29,14 +29,14 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     }
 
     @Override
-    public void deleteDepartment(Department department) {
-        sessionFactory.getCurrentSession().delete(department);
+    public void deleteDepartment(Integer id) {
+        sessionFactory.getCurrentSession().delete(getDepartmentById(id));
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Department> getAllDepartmentByCityId(Integer cityId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("SELECT d from Department d join d.city c  where c.id=:id").setInteger("id", cityId).list();
+        return session.createQuery("select d from Department d join d.city c  where c.id=:id").setParameter("id", cityId).list();
     }
 }

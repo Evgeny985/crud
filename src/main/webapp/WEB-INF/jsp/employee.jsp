@@ -16,11 +16,11 @@
 <h2>Employee</h2>
 <table>
     <tr>
-        <th>Id</th>
+        <th>ID</th>
         <th>FirstName</th>
         <th>LastName</th>
-        <th>Department Id</th>
-        <th>action</th>
+        <th>DEPARTMENT_ID</th>
+        <th>ACTION</th>
     </tr>
     <c:forEach var="employee" items="${employeeFromServer}">
         <tr>
@@ -30,7 +30,7 @@
             <td>${employee.department.id}</td>
             <td>
                 <a href="/updateEmployee/${employee.id}">update</a>
-                <a href="/deleteEmployee/${employee.id}">delete</a>
+                <a href="/deleteEmployee/${employee.id}/${employee.department.id}">delete</a>
             </td>
         </tr>
     </c:forEach>
@@ -38,6 +38,6 @@
 <c:url value="/addEmployee" var="addEmployee"/>
 <a href="${addEmployee}">Add</a>
 <c:url value="/" var="city"/>
-<a href="${city}">Back</a>
+<a href="${city}">Back to city</a>
 </body>
 </html>

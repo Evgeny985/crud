@@ -1,7 +1,6 @@
 package ru.gruzdov.mvc.dao;
 
 import ru.gruzdov.mvc.model.City;
-import ru.gruzdov.mvc.model.Department;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface CityDAO {
 
     void updateCity(City city);
 
-    void deleteCity(City city);
+    void deleteCity(Integer id);
 
     List<City> getAllCity();
 }

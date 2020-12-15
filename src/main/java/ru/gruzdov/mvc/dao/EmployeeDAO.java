@@ -1,6 +1,6 @@
 package ru.gruzdov.mvc.dao;
 
-import ru.gruzdov.mvc.model.City;
+
 import ru.gruzdov.mvc.model.Employee;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public interface EmployeeDAO {
 
     void updateEmployee(Employee employee);
 
-    void deleteEmployee(Employee employee);
+    void deleteEmployee(Integer id);
 
     List<Employee> getAllEmployeeByDepartmentId(Integer departmentId);
 }

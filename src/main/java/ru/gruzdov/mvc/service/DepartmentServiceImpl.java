@@ -16,30 +16,30 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     @Transactional
     public void addDepartment(Department department) {
-        this.departmentDAO.addDepartment(department);
+        departmentDAO.addDepartment(department);
     }
 
     @Override
     @Transactional
     public Department getDepartmentById(Integer id) {
-        return this.departmentDAO.getDepartmentById(id);
+        return departmentDAO.getDepartmentById(id);
     }
 
     @Override
     @Transactional
     public void updateDepartment(Department department) {
-this.departmentDAO.updateDepartment(department);
+departmentDAO.updateDepartment(department);
     }
 
     @Override
     @Transactional
-    public void deleteDepartment(Department department) {
-        this.departmentDAO.deleteDepartment(department);
+    public void deleteDepartment(Integer id) {
+        departmentDAO.deleteDepartment(id);
     }
 
     @Override
     @Transactional
     public List<Department> getAllDepartmentByCityId(Integer cityId) {
-        return this.departmentDAO.getAllDepartmentByCityId(cityId);
+        return departmentDAO.getAllDepartmentByCityId(cityId);
     }
 }

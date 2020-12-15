@@ -36,8 +36,8 @@
     <input type="text" name="firstName" id="firstName">
     <label for="lastName">LastName</label>
     <input type="text" name="lastName" id="lastName">
-    <label>Department_Id</label>
-    <input type="text" name="departmentId">
+    <label for="Id">Department_Id</label>
+    <input type="text" name="departmentId" id="Id">
     <input type="submit" value="Add Employee">
 </form>
 </body>

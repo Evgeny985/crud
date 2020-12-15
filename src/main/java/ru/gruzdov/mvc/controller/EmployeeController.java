@@ -11,8 +11,6 @@ import ru.gruzdov.mvc.service.CityService;
 import ru.gruzdov.mvc.service.DepartmentService;
 import ru.gruzdov.mvc.service.EmployeeService;
 
-import java.util.List;
-
 @Controller
 public class EmployeeController {
     @Autowired
@@ -26,10 +24,9 @@ public class EmployeeController {
 
     @GetMapping(value = "/employee/{id}")
     public ModelAndView getAllEmployee(@PathVariable Integer id) {
-        List<Employee> employeeList = employeeService.getAllEmployeeByDepartmentId(id);
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("employeeFromServer", employeeService.getAllEmployeeByDepartmentId(id));
         modelAndView.setViewName("employee");
-        modelAndView.addObject("employeeFromServer", employeeList);
         return modelAndView;
     }
 
@@ -80,12 +77,12 @@ public class EmployeeController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/deleteEmployee/{id}")
-    public ModelAndView deleteEmployee(@PathVariable Integer id) {
-        Employee employee = employeeService.getEmployeeById(id);
+    @GetMapping(value = "/deleteEmployee/{id}/{departmentId}")
+    public ModelAndView deleteEmployee(@PathVariable("id") Integer id,
+                                       @PathVariable("departmentId") Integer departmentId) {
+        employeeService.deleteEmployee(id);
         ModelAndView modelAndView = new ModelAndView();
-        employeeService.deleteEmployee(employee);
-        modelAndView.setViewName("redirect:/employee/" + employee.getDepartment().getId());
+        modelAndView.setViewName("redirect:/employee/"+departmentId);
         return modelAndView;
     }
 }

@@ -29,14 +29,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public void deleteEmployee(Employee employee) {
-        sessionFactory.getCurrentSession().delete(employee);
+    public void deleteEmployee(Integer id) {
+        sessionFactory.getCurrentSession().delete(getEmployeeById(id));
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Employee> getAllEmployeeByDepartmentId(Integer departmentId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("SELECT e from Employee e join e.department d  where d.id=:id").setParameter("id", departmentId).list();
+        return session.createQuery("select e from Employee e join e.department d  where d.id=:id").setParameter("id", departmentId).list();
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ru.gruzdov.mvc.model.City;
 import ru.gruzdov.mvc.service.CityService;
-import java.util.List;
+
 
 @Controller
 public class CityController {
@@ -18,26 +18,25 @@ public class CityController {
 
     @GetMapping(value = "/")
     public ModelAndView getAll() {
-        List<City> city = cityService.getAllCity();
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("cityFromServer", cityService.getAllCity());
         modelAndView.setViewName("city");
-        modelAndView.addObject("CityFromServer", city);
         return modelAndView;
     }
 
     @GetMapping(value = "/updateCity/{id}")
     public ModelAndView updatePage(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("updateCity");
         modelAndView.addObject("city", cityService.getCityById(id));
+        modelAndView.setViewName("updateCity");
         return modelAndView;
     }
 
     @PostMapping(value = "/updateCity")
     public ModelAndView updateCity(@ModelAttribute("city") City city) {
+        cityService.updateCity(city);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
-        cityService.updateCity(city);
         return modelAndView;
     }
 
@@ -50,16 +49,16 @@ public class CityController {
 
     @PostMapping(value = "/addCity")
     public ModelAndView addCity(@ModelAttribute("city") City city) {
+        cityService.addCity(city);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
-        cityService.addCity(city);
         return modelAndView;
     }
 
     @GetMapping(value = "/deleteCity/{id}")
-    public ModelAndView deleteCity(@PathVariable("id") int id) {
+    public ModelAndView deleteCity(@PathVariable("id") Integer id) {
+        cityService.deleteCity(id);
         ModelAndView modelAndView = new ModelAndView();
-        cityService.deleteCity(cityService.getCityById(id));
         modelAndView.setViewName("redirect:/");
         return modelAndView;
     }

@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.gruzdov.mvc.model.City;
-import ru.gruzdov.mvc.model.Department;
 
 import java.util.List;
 
@@ -30,14 +29,14 @@ public class CityDAOImpl implements CityDAO {
     }
 
     @Override
-    public void deleteCity(City city) {
-        sessionFactory.getCurrentSession().delete(city);
+    public void deleteCity(Integer id) {
+        sessionFactory.getCurrentSession().delete(getCityById(id));
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<City> getAllCity() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from City").list();
+        return session.createQuery("select c from City c").list();
     }
 }

@@ -1,7 +1,6 @@
 package ru.gruzdov.mvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,8 +8,6 @@ import ru.gruzdov.mvc.model.City;
 import ru.gruzdov.mvc.model.Department;
 import ru.gruzdov.mvc.service.CityService;
 import ru.gruzdov.mvc.service.DepartmentService;
-
-import java.util.List;
 
 @Controller
 public class DepartmentController {
@@ -22,10 +19,9 @@ public class DepartmentController {
 
     @GetMapping(value = "/department/{id}")
     public ModelAndView getAllDepartment(@PathVariable Integer id) {
-        List<Department> departmentList = departmentService.getAllDepartmentByCityId(id);
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("departmentFromServer", departmentService.getAllDepartmentByCityId(id));
         modelAndView.setViewName("department");
-        modelAndView.addObject("departmentFromServer", departmentList);
         return modelAndView;
     }
 
@@ -65,7 +61,7 @@ public class DepartmentController {
         ModelAndView modelAndView = new ModelAndView();
         City city = cityService.getCityById(cityId);
         if (city!=null) {
-            department.setCity(cityService.getCityById(cityId));
+            department.setCity(city);
             departmentService.addDepartment(department);
             modelAndView.setViewName("redirect:/department/" + cityId);
         } else {
@@ -74,12 +70,12 @@ public class DepartmentController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/deleteDepartment/{id}")
-    public ModelAndView deleteDepartment(@PathVariable("id") Integer id) {
-        Department department = departmentService.getDepartmentById(id);
+    @GetMapping(value = "/deleteDepartment/{id}/{cityId}")
+    public ModelAndView deleteDepartment(@PathVariable("id") Integer id,
+                                         @PathVariable("cityId") Integer cityId) {
+        departmentService.deleteDepartment(id);
         ModelAndView modelAndView = new ModelAndView();
-        departmentService.deleteDepartment(department);
-        modelAndView.setViewName("redirect:/department/" + department.getCity().getId());
+        modelAndView.setViewName("redirect:/department/" + cityId);
         return modelAndView;
     }
 }

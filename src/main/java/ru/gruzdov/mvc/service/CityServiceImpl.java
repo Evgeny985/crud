@@ -16,30 +16,30 @@ public class CityServiceImpl implements CityService {
     @Override
     @Transactional
     public void addCity(City city) {
-        this.cityDAO.addCity(city);
+        cityDAO.addCity(city);
     }
 
     @Override
     @Transactional
     public City getCityById(Integer id) {
-        return this.cityDAO.getCityById(id);
+        return cityDAO.getCityById(id);
     }
 
     @Override
     @Transactional
     public void updateCity(City city) {
-        this.cityDAO.updateCity(city);
+        cityDAO.updateCity(city);
     }
 
     @Override
     @Transactional
-    public void deleteCity(City city) {
-        this.cityDAO.deleteCity(city);
+    public void deleteCity(Integer id) {
+        cityDAO.deleteCity(id);
     }
 
     @Override
     @Transactional
     public List<City> getAllCity() {
-        return this.cityDAO.getAllCity();
+        return cityDAO.getAllCity();
     }
 }

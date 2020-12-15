@@ -11,7 +11,7 @@ public interface CityService {
 
     void updateCity(City city);
 
-    void deleteCity(City city);
+    void deleteCity(Integer id);
 
     List<City> getAllCity();
 }

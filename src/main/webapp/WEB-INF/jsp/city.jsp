@@ -16,9 +16,9 @@
 <h2>City</h2>
 <table>
     <tr>
-        <th>Id</th>
-        <th>City</th>
-        <th>action</th>
+        <th>ID</th>
+        <th>CITY</th>
+        <th>ACTION</th>
     </tr>
     <c:forEach var="city" items="${cityFromServer}">
         <tr>

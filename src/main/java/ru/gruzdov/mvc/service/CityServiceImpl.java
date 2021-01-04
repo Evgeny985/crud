@@ -9,36 +9,32 @@ import ru.gruzdov.mvc.model.City;
 import java.util.List;
 
 @Service
+@Transactional
 public class CityServiceImpl implements CityService {
     @Autowired
     private CityDAO cityDAO;
 
     @Override
-    @Transactional
     public void addCity(City city) {
         cityDAO.addCity(city);
     }
 
     @Override
-    @Transactional
     public City getCityById(Integer id) {
         return cityDAO.getCityById(id);
     }
 
     @Override
-    @Transactional
     public void updateCity(City city) {
         cityDAO.updateCity(city);
     }
 
     @Override
-    @Transactional
     public void deleteCity(Integer id) {
         cityDAO.deleteCity(id);
     }
 
     @Override
-    @Transactional
     public List<City> getAllCity() {
         return cityDAO.getAllCity();
     }

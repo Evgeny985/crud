@@ -5,22 +5,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gruzdov.mvc.dao.DepartmentDAO;
 import ru.gruzdov.mvc.model.Department;
-
-
 import java.util.List;
+
 @Service
+@Transactional
 public class DepartmentServiceImpl implements DepartmentService{
     @Autowired
     private DepartmentDAO departmentDAO;
 
     @Override
-    @Transactional
     public void addDepartment(Department department) {
         departmentDAO.addDepartment(department);
     }
 
     @Override
-    @Transactional
     public Department getDepartmentById(Integer id) {
         return departmentDAO.getDepartmentById(id);
     }
@@ -32,13 +30,11 @@ departmentDAO.updateDepartment(department);
     }
 
     @Override
-    @Transactional
     public void deleteDepartment(Integer id) {
         departmentDAO.deleteDepartment(id);
     }
 
     @Override
-    @Transactional
     public List<Department> getAllDepartmentByCityId(Integer cityId) {
         return departmentDAO.getAllDepartmentByCityId(cityId);
     }

@@ -38,7 +38,7 @@
     <input type="text" name="lastName" id="lastName">
     <label for="Id">Department_Id</label>
     <input type="text" name="departmentId" id="Id">
-    <input type="submit" value="Add Employee">
+    <input type="submit" value="Add">
 </form>
 </body>
 </html>

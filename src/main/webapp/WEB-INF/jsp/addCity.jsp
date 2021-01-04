@@ -29,7 +29,7 @@
 
     <label for="name">City</label>
     <input type="text" name="name" id="name">
-    <input type="submit" value="Add City">
+    <input type="submit" value="Add">
 
 </form>
 </body>
